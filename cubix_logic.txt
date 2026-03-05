@@ -1,0 +1,94 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <BluetoothA2DPSink.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+BluetoothA2DPSink a2dp_sink;
+
+// Pins
+#define TRIG_PIN     4
+#define ECHO_PIN     5
+#define BUZZER_PIN   18
+#define TOUCH_PIN    13
+#define LDR_PIN      34
+#define LED_PIN      19
+
+long duration;
+int distance;
+
+void setup() {
+
+  Serial.begin(115200);
+
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(TOUCH_PIN, INPUT);
+
+  Wire.begin(21,22);
+
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("OLED Failed");
+    while(1);
+  }
+
+  display.clearDisplay();
+  display.display();
+
+  // Start Bluetooth Speaker
+  a2dp_sink.start("ESP32 Speaker");
+
+}
+
+void loop() {
+
+  // ---------- Ultrasonic ----------
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  duration = pulseIn(ECHO_PIN, HIGH);
+  distance = duration * 0.034 / 2;
+
+  // ---------- OLED Display ----------
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0,0);
+  display.print("Dist:");
+  display.print(distance);
+  display.print("cm");
+  display.display();
+
+  // ---------- Buzzer distance mapping ----------
+  if(distance < 50){
+    int beepDelay = map(distance, 2, 50, 50, 400);
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(50);
+    digitalWrite(BUZZER_PIN, LOW);
+    delay(beepDelay);
+  }
+
+  // ---------- Touch Sensor ----------
+  if(digitalRead(TOUCH_PIN)==HIGH){
+    tone(BUZZER_PIN, 1000, 200);
+  }
+
+  // ---------- LDR ----------
+  int ldrValue = analogRead(LDR_PIN);
+
+  if(ldrValue < 2000){
+    digitalWrite(LED_PIN, HIGH);
+  } 
+  else{
+    digitalWrite(LED_PIN, LOW);
+  }
+
+}
