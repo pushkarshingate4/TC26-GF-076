@@ -49,7 +49,7 @@ This ensures learners understand **real embedded system dependencies**, instead 
 
 The platform uses **Neodymium magnets and copper contact pads** to connect cubes.
 
-<img width="851" height="417" alt="image" src="https://github.com/user-attachments/assets/5a2a5a1b-6d4c-4c4a-b3ed-2abfa9879496" />
+<img width="863" height="420" alt="image" src="https://github.com/user-attachments/assets/036592a6-920e-4961-80fb-6158704f24bc" />
 
 
 ### Functions of the Magnetic Interface
