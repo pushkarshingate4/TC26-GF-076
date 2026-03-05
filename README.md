@@ -49,7 +49,7 @@ This ensures learners understand **real embedded system dependencies**, instead 
 
 The platform uses **Neodymium magnets and copper contact pads** to connect cubes.
 
-<img width="867" height="432" alt="image" src="https://github.com/user-attachments/assets/1d949cef-8d58-4c99-9c31-4ef5a04e28ec" />
+<img width="851" height="417" alt="image" src="https://github.com/user-attachments/assets/5a2a5a1b-6d4c-4c4a-b3ed-2abfa9879496" />
 
 
 ### Functions of the Magnetic Interface
@@ -190,7 +190,7 @@ The modular magnetic design makes it ideal for **STEM education, robotics labs, 
 
 ---
 
-# 🚀 Conclusion
+# Conclusion
 
 Cubix Logic is a **modular magnetic embedded learning platform** that allows learners to physically build and understand real embedded systems. By combining **magnetic alignment, controlled electrical connections, and ESP32 processing**, the system ensures safe, reliable, and meaningful hands-on learning.
 
